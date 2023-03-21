@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"petlover/config"
 	"petlover/routes"
 
@@ -11,5 +12,10 @@ func main() {
 	config.InitDB()
 	e := echo.New()
 	routes.InitRoutes(e)
-	e.Start(":8000")
+	port := os.Getenv("PORT")
+	if port == "" {
+ 		port = "8080"
+	}
+	e.Start(":" + port)
+
 }
